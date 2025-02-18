@@ -18,7 +18,7 @@ function createViteConfig(config) {
       return keys.reduce((acc, key) => {
         if (isAlias) {
           const alias = key !== 'i18n' && key !== 'assets' ? `src/${key}` : key;
-          acc[key] = path.resolve(__dirname, alias);
+          acc[key] = path.resolve(process.cwd(), alias);
         } else {
           acc[key] = JSON.stringify(env[key]);
         }
