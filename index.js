@@ -4,12 +4,12 @@ const react = require('@vitejs/plugin-react');
 const gzipPlugin = require('rollup-plugin-gzip');
 const eslintPlugin = require('vite-plugin-eslint2');
 const stylelintPlugin = require('vite-plugin-stylelint');
-const { viteStaticCopy } = require('vite-plugin-static-copy');
 const { VitePWA } = require('vite-plugin-pwa');
 const AutoImport = require('unplugin-auto-import/vite');
 
 async function createViteConfig(config) {
   const { imagetools } = await import('vite-imagetools');
+  const { viteStaticCopy } = await import('vite-plugin-static-copy');
 
   return defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
