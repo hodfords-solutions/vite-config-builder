@@ -1,9 +1,9 @@
 {
   "name": "@hodfords/vite-config-builder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "VietNa",
   "description": "Vite config builder for base reactjs project",
-  "main": "vite.config.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/hodfords-solutions/vite-config-builder.git"
