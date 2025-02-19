@@ -48,18 +48,16 @@ function createViteConfig(config) {
       },
       define: createObjectDefine(config.defineEnv),
       resolve: {
-        alias: createObjectDefine(config.alias, true),
+        alias: createObjectDefine(config.aliasPath, true),
         extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
       },
       plugins: [
         react(),
-        eslintPlugin(),
+        eslintPlugin({
+          fix: true,
+        }),
         stylelintPlugin(),
         imagetools(),
-        gzipPlugin.default({
-          filter: /\.(js|css)$/i,
-          fileName: '',
-        }),
         viteStaticCopy({
           targets: [
             {
@@ -72,6 +70,12 @@ function createViteConfig(config) {
             },
           ],
         }),
+        ...(config.isUseGzip ? [
+          gzipPlugin.default({
+            filter: /\.(js|css)$/i,
+            fileName: '',
+          }),
+        ] : []),
         ...(config.isUsePWA ? [
           VitePWA({
             registerType: 'autoUpdate',
@@ -157,6 +161,17 @@ function createViteConfig(config) {
                 'useMatch',
                 'Navigate',
                 'matchRoutes',
+              ],
+            },
+            {
+              ahooks: [
+                'useToggle',
+                'useDebounce',
+                'useUpdateEffect',
+                'useBoolean',
+                'useUnmount',
+                'useSessionStorageState',
+                'useSetState',
               ],
             },
             {
