@@ -202,6 +202,8 @@ async function createViteConfig(config) {
                 'UseFormSetValue',
                 'UseFormSetError',
                 'UseFormHandleSubmit',
+                'Path',
+                'PathValue',
               ],
               type: true,
             },
