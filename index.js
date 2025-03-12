@@ -1,9 +1,9 @@
-const path = require('path');
 const { defineConfig, loadEnv } = require('vite');
 const react = require('@vitejs/plugin-react');
 const gzipPlugin = require('rollup-plugin-gzip');
 const eslintPlugin = require('vite-plugin-eslint2');
 const stylelintPlugin = require('vite-plugin-stylelint');
+const tsconfigPaths = require('vite-tsconfig-paths');
 const { VitePWA } = require('vite-plugin-pwa');
 const AutoImport = require('unplugin-auto-import/vite');
 
@@ -15,14 +15,9 @@ async function createViteConfig(config) {
     const env = loadEnv(mode, process.cwd(), '');
     const port = env.PORT || 8001;
 
-    function createObjectDefine(keys, isAlias = false) {
-      return keys.reduce((acc, key) => {
-        if (isAlias) {
-          const alias = key !== 'i18n' && key !== 'assets' ? `src/${key}` : key;
-          acc[key] = path.resolve(process.cwd(), alias);
-        } else {
-          acc[key] = JSON.stringify(env[key]);
-        }
+    function createObjectDefine() {
+      return config.defineEnv.reduce((acc, key) => {
+        acc[key] = JSON.stringify(env[key]);
         return acc;
       }, {});
     }
@@ -47,16 +42,13 @@ async function createViteConfig(config) {
         host: '0.0.0.0',
         port,
       },
-      define: createObjectDefine(config.defineEnv),
-      resolve: {
-        alias: createObjectDefine(config.aliasPath, true),
-        extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-      },
+      define: createObjectDefine(),
       plugins: [
         react(),
         eslintPlugin({
           fix: true,
         }),
+        tsconfigPaths(),
         stylelintPlugin(),
         imagetools(),
         viteStaticCopy({

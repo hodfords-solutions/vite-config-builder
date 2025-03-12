@@ -1,6 +1,6 @@
 {
   "name": "@hodfords/vite-config-builder",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "VietNa",
   "description": "Vite config builder for base reactjs project",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "vite-plugin-pwa": "0.21.1",
     "vite-plugin-static-copy": "2.2.0",
     "vite-plugin-stylelint": "6.0.0",
-    "workbox-window": "7.3.0",
+    "vite-tsconfig-paths": "5.1.4",
     "rollup-plugin-gzip": "4.0.1",
     "unplugin-auto-import": "0.18.6"
   }
