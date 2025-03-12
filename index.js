@@ -48,7 +48,7 @@ async function createViteConfig(config) {
         eslintPlugin({
           fix: true,
         }),
-        tsconfigPaths(),
+        tsconfigPaths.default(),
         stylelintPlugin(),
         imagetools(),
         viteStaticCopy({

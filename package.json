@@ -1,6 +1,6 @@
 {
   "name": "@hodfords/vite-config-builder",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "author": "VietNa",
   "description": "Vite config builder for base reactjs project",
   "main": "index.js",
