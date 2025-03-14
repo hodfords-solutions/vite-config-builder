@@ -11,6 +11,29 @@ async function createViteConfig(config) {
   const { viteStaticCopy } = await import('vite-plugin-static-copy');
   const tsconfigPaths = await import('vite-tsconfig-paths');
 
+  const isUsePWA = {
+    registerType: 'autoUpdate',
+    manifest: { theme_color: 'white' },
+    workbox: {
+      cleanupOutdatedCaches: true,
+      globPatterns: [
+        '**/*.{js,css,html,ico,png,jpg,gif,svg,webmanifest,txt,eot,ttf,woff,otf}',
+      ],
+      maximumFileSizeToCacheInBytes: 3000000,
+      disableDevLogs: true,
+    },
+  };
+
+  const disablePWA = {
+    devOptions: {
+      enabled: false,
+    },
+    registerType: 'autoUpdate',
+    workbox: {
+      cleanupOutdatedCaches: true,
+    },
+  };
+
   return defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
     const port = env.PORT || 8001;
@@ -69,20 +92,7 @@ async function createViteConfig(config) {
             fileName: '',
           }),
         ] : []),
-        ...(config.isUsePWA ? [
-          VitePWA({
-            registerType: 'autoUpdate',
-            manifest: { theme_color: 'white' },
-            workbox: {
-              cleanupOutdatedCaches: true,
-              globPatterns: [
-                '**/*.{js,css,html,ico,png,jpg,gif,svg,webmanifest,txt,eot,ttf,woff,otf}',
-              ],
-              maximumFileSizeToCacheInBytes: 3000000,
-              disableDevLogs: true,
-            },
-          }),
-        ] : []),
+        VitePWA(config.isUsePWA ? isUsePWA : disablePWA),
         AutoImport.default({
           ...config.autoImport.config,
           imports: [
