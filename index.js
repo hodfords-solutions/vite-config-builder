@@ -78,11 +78,15 @@ async function createViteConfig(config) {
           targets: [
             {
               src: 'assets/fonts',
-              dest: 'public/assets',
+              dest: env.NODE_ENV === 'development' ? 'public/assets' : 'assets',
             },
             {
               src: 'assets/images',
-              dest: 'public/assets',
+              dest: env.NODE_ENV === 'development' ? 'public/assets' : 'assets',
+            },
+            {
+              src: '.well-known',
+              dest: '.well-known',
             },
           ],
         }),
