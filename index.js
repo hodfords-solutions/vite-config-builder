@@ -86,7 +86,7 @@ async function createViteConfig(config) {
             },
             {
               src: '.well-known',
-              dest: '.well-known',
+              dest: '',
             },
           ],
         }),
